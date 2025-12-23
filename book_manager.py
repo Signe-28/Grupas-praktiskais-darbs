@@ -15,8 +15,8 @@ class BookManager:
             print(f"Error loading books: {e}")
 
     def print_books(self):
-        with open(self._filepath, "r") as f:
-            books = json.load(f)
+        try:
+            books = self._load_books()
             if not books:
                 print("No books found")
             else:
@@ -27,3 +27,5 @@ class BookManager:
                     print(f"Price: {book["price"]}")
                     print(f"In storage: {book["inStorage"]}")
                     print(f"Borrowed: {book["borrowed"]}")
+        except Exception as e:
+            print(f"Error printing books: {e}")
