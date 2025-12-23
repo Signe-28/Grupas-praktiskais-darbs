@@ -46,7 +46,7 @@ class BookManager:
             except ValueError:
                 print("Invalid number")
 
-    def add_book(self):
+    def _add_book(self):
         try:
             books = self._load_books()
             new_book = self._create_new_book()
@@ -58,11 +58,11 @@ class BookManager:
         except Exception as e:
             print(f"Error adding book: {e}")
 
-    def update_book(self):
+    def _update_book(self):
         try:
             books = self._load_books()
             is_book_found = False
-            name = input("Book to update").lower()
+            name = input("Book to update: ").lower()
 
             for book in books:
                 if book["name"].lower() == name:
@@ -82,3 +82,20 @@ class BookManager:
         except Exception as e:
             print(f"Error updating book: {e}")
 
+    def add_update_book(self):
+        while True:
+            try:
+                choice = int(input("Add (1)\nUpdate (2)\nExit (3)\n"))
+                match choice:
+                    case 1:
+                        self._add_book()
+                        return
+                    case 2:
+                        self._update_book()
+                        return
+                    case 3:
+                        return
+                    case _:
+                        print("Invalid choice")
+            except ValueError:
+                print("Please enter an integer")
