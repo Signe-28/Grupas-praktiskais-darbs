@@ -57,3 +57,28 @@ class BookManager:
 
         except Exception as e:
             print(f"Error adding book: {e}")
+
+    def update_book(self):
+        try:
+            books = self._load_books()
+            is_book_found = False
+            name = input("Book to update").lower()
+
+            for book in books:
+                if book["name"].lower() == name:
+                    new_book = self._create_new_book()
+                    new_book["borrowed"] = int(
+                        input("Amount of books borrowed: "))
+                    book.update(new_book)
+                    is_book_found = True
+                    break
+
+            if not is_book_found:
+                print("No book was found")
+            else:
+                with open(self._filepath, "w") as f:
+                    json.dump(books, f)
+
+        except Exception as e:
+            print(f"Error updating book: {e}")
+
