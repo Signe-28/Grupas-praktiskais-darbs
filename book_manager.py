@@ -10,7 +10,7 @@ class BookManager:
             with open(self._filepath, "r") as f:
                 books = json.load(f)
             return books
-        
+
         except Exception as e:
             print(f"Error loading books: {e}")
 
@@ -29,3 +29,31 @@ class BookManager:
                     print(f"Borrowed: {book["borrowed"]}")
         except Exception as e:
             print(f"Error printing books: {e}")
+
+    def _create_new_book(self):
+        while True:
+            try:
+                name = input("Book name: ")
+                author = input("Book author: ")
+                price = float(input("Book price: "))
+                in_storage = int(input("Book amount in storage: "))
+
+                book = {"name": name, "author": author, "price": price,
+                        "inStorage": in_storage}
+
+                return book
+
+            except ValueError:
+                print("Invalid number")
+
+    def add_book(self):
+        try:
+            books = self._load_books()
+            new_book = self._create_new_book()
+            new_book["borrowed"] = 0
+            books.append(new_book)
+            with open(self._filepath, "w") as f:
+                json.dump(books, f)
+
+        except Exception as e:
+            print(f"Error adding book: {e}")
