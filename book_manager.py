@@ -3,10 +3,19 @@ import json
 
 class BookManager:
     def __init__(self, filepath):
-        self.__filepath = filepath
+        self._filepath = filepath
+
+    def _load_books(self):
+        try:
+            with open(self._filepath, "r") as f:
+                books = json.load(f)
+            return books
+        
+        except Exception as e:
+            print(f"Error loading books: {e}")
 
     def print_books(self):
-        with open(self.filepath, "r") as f:
+        with open(self._filepath, "r") as f:
             books = json.load(f)
             if not books:
                 print("No books found")
