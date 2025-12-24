@@ -10,8 +10,7 @@ class BookManager:
             books = json.load(f)
         return books
 
-    def print_books(self):
-        books = self._load_books()
+    def _print_book_list(self, books):
         if not books:
             print("No books found")
         else:
@@ -22,6 +21,10 @@ class BookManager:
                 print(f"Price: {book["price"]}")
                 print(f"In storage: {book["inStorage"]}")
                 print(f"Borrowed: {book["borrowed"]}")
+
+    def print_all_books(self):
+        books = self._load_books()
+        self._print_book_list(books)
 
     def _create_new_book(self):
         while True:
@@ -104,3 +107,23 @@ class BookManager:
                         print("Invalid choice")
             except ValueError:
                 print("Please enter an integer")
+
+    def _top_5_by_key(self, key):
+        books = self._load_books()
+
+        top_5_books = []
+
+        for _ in range(5):
+            top_book = max(
+                books, key=lambda book: book[key])
+            if top_book:
+                top_5_books.append(top_book)
+                books.remove(top_book)
+            else:
+                break
+
+        return top_5_books
+
+    def top_5_borrowed(self):
+        top_5_borrowed = self._top_5_by_key("borrowed")
+        self._print_book_list(top_5_borrowed)
