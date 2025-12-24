@@ -126,4 +126,12 @@ class BookManager:
 
     def top_5_borrowed(self):
         top_5_borrowed = self._top_5_by_key("borrowed")
+        print("-"*100)
+        print("Top 5 borrowed books:")
         self._print_book_list(top_5_borrowed)
+
+    def top_5_expensive(self):
+        top_5_expensive = self._top_5_by_key("price")
+        print("-"*100)
+        print("Top 5 most expensive books:")
+        self._print_book_list(top_5_expensive)
