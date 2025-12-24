@@ -6,29 +6,22 @@ class BookManager:
         self._filepath = filepath
 
     def _load_books(self):
-        try:
-            with open(self._filepath, "r") as f:
-                books = json.load(f)
-            return books
-
-        except Exception as e:
-            print(f"Error loading books: {e}")
+        with open(self._filepath, "r") as f:
+            books = json.load(f)
+        return books
 
     def print_books(self):
-        try:
-            books = self._load_books()
-            if not books:
-                print("No books found")
-            else:
-                for book in books:
-                    print("-" * 100)
-                    print(f"Name: {book["name"]}")
-                    print(f"Author: {book["author"]}")
-                    print(f"Price: {book["price"]}")
-                    print(f"In storage: {book["inStorage"]}")
-                    print(f"Borrowed: {book["borrowed"]}")
-        except Exception as e:
-            print(f"Error printing books: {e}")
+        books = self._load_books()
+        if not books:
+            print("No books found")
+        else:
+            for book in books:
+                print("-" * 100)
+                print(f"Name: {book["name"]}")
+                print(f"Author: {book["author"]}")
+                print(f"Price: {book["price"]}")
+                print(f"In storage: {book["inStorage"]}")
+                print(f"Borrowed: {book["borrowed"]}")
 
     def _create_new_book(self):
         while True:
@@ -47,40 +40,32 @@ class BookManager:
                 print("Invalid number")
 
     def _add_book(self):
-        try:
-            books = self._load_books()
-            new_book = self._create_new_book()
-            new_book["borrowed"] = 0
-            books.append(new_book)
-            with open(self._filepath, "w") as f:
-                json.dump(books, f)
-
-        except Exception as e:
-            print(f"Error adding book: {e}")
+        books = self._load_books()
+        new_book = self._create_new_book()
+        new_book["borrowed"] = 0
+        books.append(new_book)
+        with open(self._filepath, "w") as f:
+            json.dump(books, f)
 
     def _update_book(self):
-        try:
-            books = self._load_books()
-            is_book_found = False
-            name = input("Book to update: ").lower()
+        books = self._load_books()
+        is_book_found = False
+        name = input("Book to update: ").lower()
 
-            for book in books:
-                if book["name"].lower() == name:
-                    new_book = self._create_new_book()
-                    new_book["borrowed"] = int(
-                        input("Amount of books borrowed: "))
-                    book.update(new_book)
-                    is_book_found = True
-                    break
+        for book in books:
+            if book["name"].lower() == name:
+                new_book = self._create_new_book()
+                new_book["borrowed"] = int(
+                    input("Amount of books borrowed: "))
+                book.update(new_book)
+                is_book_found = True
+                break
 
-            if not is_book_found:
-                print("No book was found")
-            else:
-                with open(self._filepath, "w") as f:
-                    json.dump(books, f)
-
-        except Exception as e:
-            print(f"Error updating book: {e}")
+        if not is_book_found:
+            print("No book was found")
+        else:
+            with open(self._filepath, "w") as f:
+                json.dump(books, f)
 
     def add_update_book(self):
         while True:
