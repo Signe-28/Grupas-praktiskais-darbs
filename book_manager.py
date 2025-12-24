@@ -28,8 +28,20 @@ class BookManager:
             try:
                 name = input("Book name: ")
                 author = input("Book author: ")
-                price = float(input("Book price: "))
-                in_storage = int(input("Book amount in storage: "))
+
+                while True:
+                    price = float(input("Book price: "))
+                    if (price < 0):
+                        print("Price cannot be negative")
+                        continue
+                    break
+
+                while True:
+                    in_storage = int(input("Book amount in storage: "))
+                    if (in_storage < 0):
+                        print("Amount cannot be negative")
+                        continue
+                    break
 
                 book = {"name": name, "author": author, "price": price,
                         "inStorage": in_storage}
@@ -59,6 +71,9 @@ class BookManager:
                     try:
                         new_book["borrowed"] = int(
                             input("Amount of books borrowed: "))
+                        if (new_book["borrowed"] < 0):
+                            print("Amount cannot be negative")
+                            continue
                         break
                     except ValueError:
                         print("Please enter an integer")
