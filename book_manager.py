@@ -113,16 +113,19 @@ class BookManager:
 
         top_5_books = []
 
-        for _ in range(5):
-            top_book = max(
-                books, key=lambda book: book[key])
-            if top_book:
-                top_5_books.append(top_book)
-                books.remove(top_book)
-            else:
-                break
+        try:
+            for _ in range(5):
+                top_book = max(
+                    books, key=lambda book: book[key])
+                if top_book:
+                    top_5_books.append(top_book)
+                    books.remove(top_book)
+                else:
+                    break
 
-        return top_5_books
+            return top_5_books
+        except ValueError:
+            return []
 
     def top_5_borrowed(self):
         top_5_borrowed = self._top_5_by_key("borrowed")
