@@ -12,15 +12,15 @@ class BookManager:
 
     def _print_book_list(self, books):
         if not books:
-            print("No books found")
+            print("Grāmatas nav atrastas")
         else:
             for book in books:
                 print("-" * 100)
-                print(f"Name: {book["name"]}")
-                print(f"Author: {book["author"]}")
-                print(f"Price: {book["price"]}")
-                print(f"In storage: {book["inStorage"]}")
-                print(f"Borrowed: {book["borrowed"]}")
+                print(f'Nosaukums: {book["name"]}')
+                print(f'Autors: {book["author"]}')
+                print(f'Cena: {book["price"]}')
+                print(f'Uz vietas: {book["inStorage"]}')
+                print(f'Aizdotas: {book["borrowed"]}')
 
     def print_all_books(self):
         books = self._load_books()
@@ -29,20 +29,20 @@ class BookManager:
     def _create_new_book(self):
         while True:
             try:
-                name = input("Book name: ")
-                author = input("Book author: ")
+                name = input("Grāmatas nosaukums: ")
+                author = input("Grāmatas autors: ")
 
                 while True:
-                    price = float(input("Book price: "))
+                    price = float(input("Grāmatas cena: "))
                     if (price < 0):
-                        print("Price cannot be negative")
+                        print("Cena nevar būt negatīva")
                         continue
                     break
 
                 while True:
-                    in_storage = int(input("Book amount in storage: "))
+                    in_storage = int(input("Grāmatu skaits noliktavā: "))
                     if (in_storage < 0):
-                        print("Amount cannot be negative")
+                        print("Skaits nevar būt negatīvs")
                         continue
                     break
 
@@ -52,7 +52,7 @@ class BookManager:
                 return book
 
             except ValueError:
-                print("Please enter a valid number")
+                print("Lūdzu, ievadiet derīgu skaitli")
 
     def _add_book(self):
         books = self._load_books()
@@ -65,7 +65,7 @@ class BookManager:
     def _update_book(self):
         books = self._load_books()
         is_book_found = False
-        name = input("Book to update: ").lower()
+        name = input("Grāmata, kuru atjaunināt: ").lower()
 
         for book in books:
             if book["name"].lower() == name:
@@ -73,19 +73,19 @@ class BookManager:
                 while True:
                     try:
                         new_book["borrowed"] = int(
-                            input("Amount of books borrowed: "))
+                            input("Aizņemto grāmatu skaits: "))
                         if (new_book["borrowed"] < 0):
-                            print("Amount cannot be negative")
+                            print("Skaits nevar būt negatīvs")
                             continue
                         break
                     except ValueError:
-                        print("Please enter an integer")
+                        print("Lūdzu, ievadiet veselu skaitli")
                 book.update(new_book)
                 is_book_found = True
                 break
 
         if not is_book_found:
-            print("No book was found")
+            print("Grāmata netika atrasta")
         else:
             with open(self._filepath, "w") as f:
                 json.dump(books, f)
@@ -93,7 +93,8 @@ class BookManager:
     def add_update_book(self):
         while True:
             try:
-                choice = int(input("Add (1)\nUpdate (2)\nExit (3)\n"))
+                choice = int(
+                    input("Pievienot (1)\nAtjaunināt (2)\nIziet (3)\n"))
                 match choice:
                     case 1:
                         self._add_book()
@@ -104,9 +105,9 @@ class BookManager:
                     case 3:
                         return
                     case _:
-                        print("Invalid choice")
+                        print("Nederīga izvēle")
             except ValueError:
-                print("Please enter an integer")
+                print("Lūdzu, ievadiet veselu skaitli")
 
     def _top_5_by_key(self, key):
         books = self._load_books()
@@ -130,11 +131,11 @@ class BookManager:
     def top_5_borrowed(self):
         top_5_borrowed = self._top_5_by_key("borrowed")
         print("-"*100)
-        print("Top 5 borrowed books:")
+        print("Top 5 aizņemtākās grāmatas:")
         self._print_book_list(top_5_borrowed)
 
     def top_5_expensive(self):
         top_5_expensive = self._top_5_by_key("price")
         print("-"*100)
-        print("Top 5 most expensive books:")
+        print("Top 5 dārgākās grāmatas:")
         self._print_book_list(top_5_expensive)
