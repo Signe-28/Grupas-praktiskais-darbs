@@ -1,1 +1,65 @@
-[]
+[
+    {
+        "name": "Romeo un Džulieta",
+        "author": "Viljams Šekspīrs",
+        "price": 12.0,
+        "inStorage": 37,
+        "borrowed": 13
+    },
+    {
+        "name": "Ansītis un grietiņa",
+        "author": "Vilhelms Grimms un Jākobs Grimms",
+        "price": 12.0,
+        "inStorage": 26,
+        "borrowed": 0
+    },
+    {
+        "name": "Vinnijs Pūks un viņa draugi",
+        "author": "Alans Aleksandrs Milns",
+        "price": 16.0,
+        "inStorage": 11,
+        "borrowed": 25
+    },
+    {
+        "name": "Staburaga bērni",
+        "author": "Voldemārs Zālītis",
+        "price": 17.0,
+        "inStorage": 26,
+        "borrowed": 6
+    },
+    {
+        "name": "Indulis un Ārija",
+        "author": "Rainis",
+        "price": 20.0,
+        "inStorage": 9,
+        "borrowed": 3
+    },
+    {
+        "name": "Skroderdienas Silmačos",
+        "author": "Rūdolfs Blaumanis",
+        "price": 16.5,
+        "inStorage": 38,
+        "borrowed": 0
+    },
+    {
+        "name": "Dvēseļu putenis",
+        "author": "Aleksandrs Grīns",
+        "price": 21.0,
+        "inStorage": 25,
+        "borrowed": 0
+    },
+    {
+        "name": "krāsainas pasakas",
+        "author": "Imants Ziedonis",
+        "price": 16.5,
+        "inStorage": 20,
+        "borrowed": 0
+    },
+    {
+        "name": "Lāčplēsis",
+        "author": " Andrejs Pumpurs",
+        "price": 14.0,
+        "inStorage": 26,
+        "borrowed": 0
+    }
+]
