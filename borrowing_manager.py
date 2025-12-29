@@ -7,14 +7,20 @@ def borrow_return_book():
     correct_input = False
     while not correct_input:
         try:
-            name = str(input("Grāmatas nosaukums: ")).strip().lower()
-            quantity = int(input("Grāmatu skaits, ko vēlies aizņemties: "))
-            borrow_or_return = int(input("Vai vēlie aizņemties(1) vai atgriezt(2) grāmatu? "))
-            if borrow_or_return == 1 or borrow_or_return == 2 and quantity >= 0:
-                correct_input = True
+            borrow_or_return = int(input("Vai vēlies aizņemties(1) vai atgriezt(2) grāmatu? "))
+            if borrow_or_return == 1 or borrow_or_return == 2:
+                quantity = int(input("Grāmatu skaits: "))
+                if quantity >= 0: 
+                    name = str(input("Grāmatas nosaukums: ")).strip().lower()
+                    correct_input = True
+                else:
+                    print("-" * 100)
+                    print("ievadi pareizu grāmatu skaitu!")
             else:
+                print("-" * 100)
                 print("Ievadi pareizu vērtību!")
         except:
+            print("-" * 100)
             print("Ievadi pareiza tipa vērtības lūdzu!")
     
     # Nolasa info no faila
@@ -34,6 +40,7 @@ def borrow_return_book():
                 element["inStorage"] += quantity
                 book_found = True
     if not book_found:
+        print("-" * 100)
         print("Šāda grāmata nav bibliotēkā vai skaits pārāk liels!")
     
     # Atjauno info failā
@@ -48,8 +55,9 @@ def search_book():
     #input nosaukumam vai autoram
     correct_input = False
     while not correct_input:
+        print("-" * 100)
         try:
-            meklesanas_nosacijumi = int(input("Pēc kāda parametra jāmeklē grāmata?\n1. Pēc grāmatas nosaukuma\n2. Pēc autora"))
+            meklesanas_nosacijumi = int(input("Pēc kāda parametra jāmeklē grāmata?\nPēc grāmatas nosaukuma (1)\nPēc autora (2)\n"))
             if meklesanas_nosacijumi == 1:
                 name = str(input("Grāmatas nosaukums: ")).strip().lower()
                 correct_input = True
@@ -57,9 +65,11 @@ def search_book():
                 author = str(input("Autora vārds: ")).strip().lower()
                 correct_input = True
             else:
+                print("-" * 100)
                 print("Ievadi pareizu vērtību!")
         except:
-            print("Ievai pareiza tipa vērtības lūdzu!")
+            print("-" * 100)
+            print("Ievadi pareiza tipa vērtību lūdzu!")
     
     # Nolasa info no faila
     with open("library_data.json", mode="r", encoding="utf-8") as f:
@@ -76,8 +86,15 @@ def search_book():
     # Grāmatu izprintēšana
     if book_found:
         for book in book_found:
-            print(book)
+            print("-" * 100)
+            print(f'Nosaukums: {book["name"]}')
+            print(f'Autors: {book["author"]}')
+            print(f'Cena: {book["price"]}')
+            print(f'Uz vietas: {book["inStorage"]}')
+            print(f'Aizdotas: {book["borrowed"]}')
+            
     else:
+        print("-" * 100)
         print("Grāmata netika atrasta")
 
 
@@ -89,6 +106,9 @@ def top_5_least_borrowed():
         
     sorted_books = sorted(data, key=lambda x: x["borrowed"])
     top_5 = sorted_books[:5]
+    print("-" * 100)
+    print("Top 5 mazāk aizņemtās grāmatas: ")
+    print("-" * 100)
     for i, book in enumerate(top_5, start=1):
-        print(f"{i}. {book['name']} - {book['borrowed']} aizņemts")                
+        print(f"{i}. {book['name']} ({book['author']}) - {book['borrowed']} aizņemts")                
                 

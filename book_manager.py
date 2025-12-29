@@ -6,7 +6,7 @@ class BookManager:
         self._filepath = filepath
 
     def _load_books(self):
-        with open(self._filepath, "r") as f:
+        with open(self._filepath, "r", encoding="utf-8") as f:
             books = json.load(f)
         return books
 
@@ -59,8 +59,8 @@ class BookManager:
         new_book = self._create_new_book()
         new_book["borrowed"] = 0
         books.append(new_book)
-        with open(self._filepath, "w") as f:
-            json.dump(books, f)
+        with open(self._filepath, "w", encoding="utf-8") as f:
+            json.dump(books, f, indent=4)
 
     def _update_book(self):
         books = self._load_books()
@@ -87,8 +87,8 @@ class BookManager:
         if not is_book_found:
             print("Grāmata netika atrasta")
         else:
-            with open(self._filepath, "w") as f:
-                json.dump(books, f)
+            with open(self._filepath, "w", encoding="utf-8") as f:
+                json.dump(books, f, indent=4)
 
     def add_update_book(self):
         while True:
